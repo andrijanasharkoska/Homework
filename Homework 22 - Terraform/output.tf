@@ -4,5 +4,6 @@ output "resource_group_name" {
 }
 
 output "storage_account_name" {
-  value = "${random_string.random.result}-rg"
+  value       = "${local.resource_prefix}sa"
+  description = "The storage account"
 }
