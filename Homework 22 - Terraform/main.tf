@@ -10,6 +10,9 @@ terraform {
 provider "azurerm" {
   features {}
 }
+locals {
+  resource_prefix = "${var.my_name}${random_string.random.result}"
+}
 data "azurerm_subscription" "current" {}
 
 resource "random_string" "random" {
@@ -20,12 +23,12 @@ resource "random_string" "random" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "${random_string.random.result}-rg"
-  location = "West Europe"
+  name     = "${local.resource_prefix}-rg"
+  location = var.location
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "${random_string.random.result}sa"
+  name                     = "${local.resource_prefix}sa"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
