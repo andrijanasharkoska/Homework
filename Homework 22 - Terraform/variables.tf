@@ -5,6 +5,7 @@ variable "my_name" {
 
 variable "location" {
   type        = string
-  description = "West Europe"
+  default     = "West Europe"
+  description = "The location where all resources will be placed"
 
 }
